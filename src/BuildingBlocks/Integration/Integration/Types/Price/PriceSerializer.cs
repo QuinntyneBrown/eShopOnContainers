@@ -3,9 +3,17 @@
 
 namespace Integration.Types;
 
-public class PriceSerializer
+public class PriceSerializer : ISerializer<PriceType>
 {
+    public PriceType Deserialize(byte[] data)
+    {
+        throw new NotImplementedException();
+    }
 
+    public byte[] Serialize(PriceType value)
+    {
+        throw new NotImplementedException();
+    }
 }
 
 

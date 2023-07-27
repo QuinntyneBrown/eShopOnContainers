@@ -3,9 +3,15 @@
 
 namespace Integration.Types;
 
-public class PriceConverter
+public class PriceConverter : IConverter<PriceType>
 {
-
+    public List<Tuple<int, int>> Convert(PriceType value)
+    {
+        return new ()
+        {
+            new (0,0)
+        };
+    }
 }
 
 
