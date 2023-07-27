@@ -3,8 +3,6 @@
 
 using Integration.Events;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Threading.Tasks;
 
 namespace EventBus.Udp;
 

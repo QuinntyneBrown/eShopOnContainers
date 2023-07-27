@@ -3,7 +3,6 @@
 
 using Integration.Types;
 using Integration.Types.ProductId;
-using System;
 
 namespace Integration.Events.ProductPriceChanged;
 
