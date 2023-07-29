@@ -4,7 +4,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace SharedKernel;
+namespace SharedKernel.Web;
 
 public class InternalServerErrorObjectResult : ObjectResult
 {

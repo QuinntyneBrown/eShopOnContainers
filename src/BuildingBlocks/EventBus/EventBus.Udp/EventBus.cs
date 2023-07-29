@@ -3,10 +3,11 @@
 
 using Integration;
 using Integration.Events;
-using Integration.Types;
+using SharedKernel;
 using Microsoft.Extensions.Logging;
 using System.Net.Sockets;
 using System.Reactive.Linq;
+using SharedKernel.Serialization;
 
 namespace EventBus.Udp;
 

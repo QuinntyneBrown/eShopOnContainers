@@ -25,8 +25,4 @@
     <ProjectReference Include="..\Integration\Integration.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="BitPacker\" />
-  </ItemGroup>
-
 </Project>

@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
+using SharedKernel.Exceptions;
+using SharedKernel.Web;
 using System.Net;
 
 namespace SharedKernel;

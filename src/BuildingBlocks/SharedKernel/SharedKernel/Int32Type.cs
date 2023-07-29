@@ -2,8 +2,9 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using System.Buffers.Binary;
+using SharedKernel.Abstractions;
 
-namespace Integration.Types;
+namespace SharedKernel;
 
 public class Int32Type : ValueObject, IBitPackable
 {
