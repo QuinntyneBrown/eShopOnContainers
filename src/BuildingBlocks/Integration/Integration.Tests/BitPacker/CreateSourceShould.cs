@@ -12,7 +12,6 @@ public class CreateSourceShould {
     {
         var integrationEvent = new ProductPriceChangedIntegrationEvent(
             Guid.NewGuid(),
-            Guid.NewGuid(),
             300,
             600);
 

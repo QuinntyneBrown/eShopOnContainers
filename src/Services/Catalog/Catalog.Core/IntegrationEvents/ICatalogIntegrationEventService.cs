@@ -3,7 +3,7 @@
 
 using Integration.Events;
 
-namespace Catalog.Api.IntegrationEvents;
+namespace Catalog.Core.IntegrationEvents;
 
 public interface ICatalogIntegrationEventService
 {

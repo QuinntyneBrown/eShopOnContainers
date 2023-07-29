@@ -2,24 +2,37 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Microsoft.Extensions.Logging;
-using System;
-using System.Threading.Tasks;
+using System.Net;
+using System.Net.Sockets;
 
 namespace EventBus.Udp;
 
-public class UdpClientFactory: IUdpClientFactory
+public class UdpClientFactory : IUdpClientFactory
 {
-    private readonly ILogger<UdpClientFactory> _logger;
-
-    public UdpClientFactory(ILogger<UdpClientFactory> logger){
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-    }
-
-    public async Task DoWorkAsync()
+    public static readonly string MultiCastGroupIp = "224.0.0.1";
+    public const int BroadcastPort = 80;
+    public UdpClient Create()
     {
-        _logger.LogInformation("DoWorkAsync");
+        UdpClient udpClient = null!;
+
+        int i = 1;
+
+        while (udpClient?.Client?.IsBound == null || udpClient.Client.IsBound == false)
+        {
+            try
+            {
+                udpClient = new UdpClient();
+
+                udpClient.Client.Bind(IPEndPoint.Parse($"127.0.0.{i}:{BroadcastPort}"));
+
+                udpClient.JoinMulticastGroup(IPAddress.Parse(MultiCastGroupIp), IPAddress.Parse($"127.0.0.{BroadcastPort}"));
+            }
+            catch (SocketException)
+            {
+                i++;
+            }
+        }
+
+        return udpClient;
     }
-
 }
-
-

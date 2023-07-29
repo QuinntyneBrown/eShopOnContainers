@@ -4,7 +4,7 @@
 using EventBus.Udp;
 using Integration.Events;
 
-namespace Catalog.Api.IntegrationEvents;
+namespace Catalog.Core.IntegrationEvents;
 
 public class CatalogIntegrationEventService: ICatalogIntegrationEventService
 {
@@ -19,9 +19,11 @@ public class CatalogIntegrationEventService: ICatalogIntegrationEventService
         _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
     }
 
-    public Task PublishThroughEventBusAsync(IntegrationEvent evt)
+    public async Task PublishThroughEventBusAsync(IntegrationEvent evt)
     {
-        throw new NotImplementedException();
+        _logger.LogInformation("PublishThroughEventBusAsync");
+
+        await _eventBus.PublishAsync(evt);
     }
 
     public Task SaveEventAndCatalogContextChangesAsync(IntegrationEvent evt)

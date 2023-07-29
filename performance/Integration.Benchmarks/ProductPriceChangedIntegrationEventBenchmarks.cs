@@ -10,20 +10,12 @@ namespace Integration.Benchmarks;
 [RankColumn]
 public class ProductPriceChangedIntegrationEventBenchmarks
 {
-    private Integration.Events.ProductPriceChangedIntegrationEvent _event;
-
-    [GlobalCleanup]
-    public void Setup()
-    {
-        _event = new Integration.Events.ProductPriceChangedIntegrationEvent(Guid.NewGuid(), Guid.NewGuid(), 5000, 5000);
-    }
-
     [Benchmark]
     public void PackIntoBuffer()
     {
         var buffer = new byte[40];
 
-        var @event = new Integration.Events.ProductPriceChangedIntegrationEvent(Guid.NewGuid(), Guid.NewGuid(), 5000, 5000);
+        var @event = new Integration.Events.ProductPriceChangedIntegrationEvent(Guid.NewGuid(), 5000, 5000);
 
         @event.SerializeIntoBuffer(buffer);
     }

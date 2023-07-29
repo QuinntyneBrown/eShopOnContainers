@@ -121,9 +121,5 @@ public static class BitPacker
         destinantion[size - 1] = (byte)(buffer[index + size - 1] << offset);
 
         return destinantion;
-
     }
-
-
 }
-
