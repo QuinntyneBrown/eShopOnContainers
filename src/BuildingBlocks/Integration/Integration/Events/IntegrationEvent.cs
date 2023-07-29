@@ -1,12 +1,18 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Integration.Types.IntegrationEventId;
+using Integration.Types;
 
 namespace Integration.Events;
 
-public record IntegrationEvent {
+public abstract record IntegrationEvent: IBitPackable {
 
-    public IntegrationEventIdType Id { get; set; }
+    public IntegrationEvent(GuidType id)
+    {
+        Id =  id;
+    }
+    public GuidType Id { get; set; } 
+
+    public abstract (int value, int numberOfBits)[] ToDescriptors();
 }
 

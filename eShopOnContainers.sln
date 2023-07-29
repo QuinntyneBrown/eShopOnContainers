@@ -57,6 +57,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Bff.Shopping.HttpAggreg
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integration.Tests", "src\BuildingBlocks\Integration\Integration.Tests\Integration.Tests.csproj", "{92958160-4DFF-40DC-B66E-E56C2B448937}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "performance", "performance", "{0799A0D9-B8B9-4B9F-A71D-24C19A02F769}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integration.Benchmarks", "performance\Integration.Benchmarks\Integration.Benchmarks.csproj", "{DC09A731-835D-432D-B126-3219A8EB824E}"
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,6 +92,7 @@ Global
 		{B33796A0-7315-4812-8C75-9B6EFC915820} = {11FD9677-40DC-4883-AF8D-18B51FFDB0B5}
 		{15E4F5C8-B58E-493B-BADA-4BFBA80FABD2} = {B33796A0-7315-4812-8C75-9B6EFC915820}
 		{92958160-4DFF-40DC-B66E-E56C2B448937} = {B5405A73-3B54-4504-B356-86E93B7FB1FC}
+		{DC09A731-835D-432D-B126-3219A8EB824E} = {0799A0D9-B8B9-4B9F-A71D-24C19A02F769}
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -302,5 +307,17 @@ Global
 		{92958160-4DFF-40DC-B66E-E56C2B448937}.Release|x64.Build.0 = Release|Any CPU
 		{92958160-4DFF-40DC-B66E-E56C2B448937}.Release|x86.ActiveCfg = Release|Any CPU
 		{92958160-4DFF-40DC-B66E-E56C2B448937}.Release|x86.Build.0 = Release|Any CPU
+		{DC09A731-835D-432D-B126-3219A8EB824E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC09A731-835D-432D-B126-3219A8EB824E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC09A731-835D-432D-B126-3219A8EB824E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DC09A731-835D-432D-B126-3219A8EB824E}.Debug|x64.Build.0 = Debug|Any CPU
+		{DC09A731-835D-432D-B126-3219A8EB824E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DC09A731-835D-432D-B126-3219A8EB824E}.Debug|x86.Build.0 = Debug|Any CPU
+		{DC09A731-835D-432D-B126-3219A8EB824E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC09A731-835D-432D-B126-3219A8EB824E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC09A731-835D-432D-B126-3219A8EB824E}.Release|x64.ActiveCfg = Release|Any CPU
+		{DC09A731-835D-432D-B126-3219A8EB824E}.Release|x64.Build.0 = Release|Any CPU
+		{DC09A731-835D-432D-B126-3219A8EB824E}.Release|x86.ActiveCfg = Release|Any CPU
+		{DC09A731-835D-432D-B126-3219A8EB824E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
