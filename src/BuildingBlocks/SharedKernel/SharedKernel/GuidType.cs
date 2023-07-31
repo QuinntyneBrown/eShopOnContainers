@@ -17,16 +17,21 @@ public struct GuidType: IEquatable<GuidType>, IPackable
 
     public Guid Value { get; }
 
-
     public void Pack(byte[] buffer, int index, int bitIndex)
     {        
         BitVector8.Pack(Value.ToByteArray(), 16, buffer, index, bitIndex);
     }
 
-    public bool Equals(GuidType other)
-    {
-        return Value.Equals(other.Value);
-    }
+    public override bool Equals(object? obj) => obj is GuidType other && Equals(other);
+    public bool Equals(GuidType other) => Value.Equals(other.Value);
+
+    public static bool operator ==(GuidType left, GuidType right) => left.Equals(right);
+
+    //public override int GetHashCode() => (X, Y).GetHashCode();
+    public override int GetHashCode() => Value.GetHashCode();
+
+    public static bool operator !=(GuidType lhs, GuidType rhs) => !(lhs == rhs);
+
 
     public static implicit operator Guid(GuidType type)
     {
@@ -37,5 +42,4 @@ public struct GuidType: IEquatable<GuidType>, IPackable
     {
         return new GuidType(value);
     }
-
 }

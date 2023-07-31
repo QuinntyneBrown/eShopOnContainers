@@ -37,9 +37,9 @@ public class EventBus: IEventBus
 
     public void Subscribe(GuidType guid, Action<byte[]> onNext)
     {
-/*        _observableBuffer
+        _observableBuffer
             .Where(x => new GuidType(BitVector8.Unpack(x, 32)) == guid)
-            .Subscribe(onNext);*/
+            .Subscribe(onNext);
     }
 
     public async Task StartAsync(CancellationToken cancellationToken = default)
