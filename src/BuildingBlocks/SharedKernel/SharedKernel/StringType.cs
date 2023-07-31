@@ -1,12 +1,10 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using SharedKernel.Abstractions;
-
 namespace SharedKernel;
 
 
-public class StringType: ValueObject, IBitPackable
+public class StringType: IEquatable<StringType>, IPackable
 {
     public StringType(string value)
     {
@@ -15,14 +13,14 @@ public class StringType: ValueObject, IBitPackable
 
     public string Value { get; }
 
-    public (int value, int numberOfBits)[] ToDescriptors()
+    public bool Equals(StringType? other)
     {
         throw new NotImplementedException();
     }
 
-    protected override IEnumerable<object> GetEqualityComponents()
+    public void Pack(byte[] buffer, int index, int bitIndex)
     {
-        yield return Value;
+        throw new NotImplementedException();
     }
 
     public static implicit operator string(StringType type)

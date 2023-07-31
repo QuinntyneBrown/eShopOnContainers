@@ -3,8 +3,8 @@
 
 namespace SharedKernel.Serialization;
 
-public interface IBitPackable
+public interface IPackable
 {
-    (int value, int numberOfBits)[] ToDescriptors();
+    void Pack(byte[] buffer, int index, int bitIndex);
 }
 

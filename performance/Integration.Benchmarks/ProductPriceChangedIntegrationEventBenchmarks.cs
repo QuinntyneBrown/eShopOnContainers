@@ -17,7 +17,7 @@ public class ProductPriceChangedIntegrationEventBenchmarks
 
         var @event = new Integration.Events.ProductPriceChangedIntegrationEvent(Guid.NewGuid(), 5000, 5000);
 
-        @event.SerializeIntoBuffer(buffer);
+        @event.Pack(buffer);
     }
 }
 

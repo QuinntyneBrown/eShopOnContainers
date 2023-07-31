@@ -25,22 +25,21 @@ public class EventBus: IEventBus
     }
 
     public async Task PublishAsync(IntegrationEvent @event)
-    {
-        
+    {        
         _logger.LogInformation("Publishing event. {0}", @event.Id);
 
         byte[] buffer = new byte[40];
 
-        BitPacker.PackIntoBuffer(@event, buffer);
+        @event.Pack(buffer, 0, 0);
 
         await _sender.SendAsync(buffer, UdpClientFactory.MultiCastGroupIp, UdpClientFactory.BroadcastPort);
     }
 
     public void Subscribe(GuidType guid, Action<byte[]> onNext)
     {
-        _observableBuffer
-            .Where(x => new GuidType(BitPacker.Unpack(x, 32)) == guid)
-            .Subscribe(onNext);
+/*        _observableBuffer
+            .Where(x => new GuidType(BitVector8.Unpack(x, 32)) == guid)
+            .Subscribe(onNext);*/
     }
 
     public async Task StartAsync(CancellationToken cancellationToken = default)

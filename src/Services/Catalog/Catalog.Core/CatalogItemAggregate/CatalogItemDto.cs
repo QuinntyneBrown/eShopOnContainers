@@ -8,7 +8,7 @@ public class CatalogItemDto
     public Guid CatalogItemId { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
-    public int Price { get; set; }
+    public decimal Price { get; set; }
     public string PictureFileName { get; set; }
     public string PictureUrl { get; set; }
     public Guid CatalogTypeId { get; set; }

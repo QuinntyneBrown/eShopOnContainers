@@ -6,14 +6,17 @@ using SharedKernel.Serialization;
 
 namespace Integration.Events;
 
-public abstract record IntegrationEvent: IBitPackable {
+public abstract record IntegrationEvent: IPackable {
 
     public IntegrationEvent(GuidType id)
     {
         Id =  id;
     }
-    public GuidType Id { get; set; } 
+    public GuidType Id { get; set; }
 
-    public abstract (int value, int numberOfBits)[] ToDescriptors();
+    public void Pack(byte[] buffer, int index, int bitIndex)
+    {
+        Id.Pack(buffer, index, bitIndex);
+    }
 }
 

@@ -2,11 +2,10 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using System.Buffers.Binary;
-using SharedKernel.Abstractions;
 
 namespace SharedKernel;
 
-public class Int32Type : ValueObject, IBitPackable
+public struct Int32Type: IEquatable<Int32Type>, IPackable
 {
     public Int32Type(Int32 value)
     {
@@ -22,18 +21,19 @@ public class Int32Type : ValueObject, IBitPackable
 
     public static int SizeInBits = 32;
 
-    public (int value, int numberOfBits)[] ToDescriptors()
+    public void Pack(byte[] buffer, int index, int bitIndex)
     {
-        byte[] buffer = new byte[4];
+        Span<byte> bytes = stackalloc byte[4];
 
-        BinaryPrimitives.WriteInt32BigEndian(buffer, Value);
+        BinaryPrimitives.WriteInt32BigEndian(bytes, Value);
 
-        return buffer.Select(x => ((int)x, 8)).ToArray();
+        BitVector8.Pack(bytes, 32, buffer, index, bitIndex);
     }
 
-    protected override IEnumerable<object> GetEqualityComponents()
+
+    public bool Equals(Int32Type other)
     {
-        yield return Value;
+        return Value == other.Value;
     }
 
     public static implicit operator Int32(Int32Type type)

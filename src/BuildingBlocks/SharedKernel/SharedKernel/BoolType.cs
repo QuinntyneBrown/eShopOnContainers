@@ -1,32 +1,34 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using SharedKernel.Abstractions;
-using SharedKernel.Serialization;
-
 namespace SharedKernel;
 
-public class BoolType: ValueObject, IBitPackable
+public struct BoolType: IEquatable<BoolType>, IPackable
 {
     public BoolType(bool value)
     {
         Value = value;
     }
 
-    public bool Value { get; }
-
-    public (int value, int numberOfBits)[] ToDescriptors()
+    public BoolType(byte[] value)
     {
-        return new (int, int)[]
-        {
-
-            (Value ? 1: 0, 1)
-        };
+        Value = value[0] == 1 ? true : false;
     }
 
-    protected override IEnumerable<object> GetEqualityComponents()
+    public bool Value { get; }
+
+    public bool Equals(BoolType other)
     {
-        yield return Value;
+        return Value == other.Value;
+    }
+
+    public void Pack(byte[] buffer, int index, int bitIndex)
+    {
+        Span<byte> bytes = stackalloc byte[1];
+
+        bytes[0] = (byte)(Value == true ? 1: 0);
+
+        BitVector8.Pack(bytes, 1, buffer, index, bitIndex);
     }
 
     public static implicit operator bool(BoolType type)
@@ -38,5 +40,4 @@ public class BoolType: ValueObject, IBitPackable
     {
         return new BoolType(value);
     }
-
 }

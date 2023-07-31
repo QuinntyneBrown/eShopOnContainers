@@ -20,16 +20,13 @@ public record ProductPriceChangedIntegrationEvent : IntegrationEvent
     }
 
     public ProductPriceChangedIntegrationEvent(byte[] buffer)
-        : base(new GuidType(BitPacker.Unpack(buffer, GuidType.SizeInBits)))
+        : base(new GuidType(BitVector8.Unpack(buffer, 16)))
     {
-        ProductId = new GuidType(BitPacker.Unpack(buffer, GuidType.SizeInBits, 16));
-        OldPrice = new Int32Type(BitPacker.Unpack(buffer, Int32Type.SizeInBits, 32));
-        NewPrice = new Int32Type(BitPacker.Unpack(buffer, Int32Type.SizeInBits, 36));
+        ProductId = new GuidType(BitVector8.Unpack(buffer, 16, 16));
+        OldPrice = new Int32Type(BitVector8.Unpack(buffer, 32, 32));
+        NewPrice = new Int32Type(BitVector8.Unpack(buffer, 32, 36));
     }
-    public int SizeInBytes { get; } = 40;
-
-    public const int SizeInBits = 320;
-
+    
     public ProductPriceChangedIntegrationEvent(
         Guid productId,
         int oldPrice,
@@ -45,38 +42,14 @@ public record ProductPriceChangedIntegrationEvent : IntegrationEvent
     public Int32Type OldPrice { get; init; }
     public Int32Type NewPrice { get; init; }
 
-    
-    public override (int value, int numberOfBits)[] ToDescriptors()
+   
+
+    public void Pack(byte[] buffer, int index = 0, int bitIndex = 7)
     {
-        return Id.ToDescriptors()
-            .Concat(ProductId.ToDescriptors()
-            .Concat(OldPrice.ToDescriptors())
-            .Concat(NewPrice.ToDescriptors()))
-            .ToArray();
-    }
-
-    public void SerializeIntoBuffer(byte[] buffer, int index = 0, int bitIndex = 7)
-    {
-        BitPacker.PackIntoBuffer(Id, buffer, index, bitIndex);
-        BitPacker.PackIntoBuffer(ProductId, buffer, index + 16, bitIndex);
-        BitPacker.PackIntoBuffer(OldPrice, buffer, index + 32, bitIndex);
-        BitPacker.PackIntoBuffer(NewPrice, buffer, index + 36, bitIndex);
-    }
-
-    public static ProductPriceChangedIntegrationEvent Unpack(byte[] buffer)
-    {
-        var id = new GuidType(BitPacker.Unpack(buffer, GuidType.SizeInBits));
-
-        if(id != Constants.ProductPriceChanged)
-        {
-            throw new Exception();
-        }
-
-        var productId = new GuidType(BitPacker.Unpack(buffer, GuidType.SizeInBits, 16));
-        var oldPrice = new Int32Type(BitPacker.Unpack(buffer, Int32Type.SizeInBits, 32));
-        var newPrice = new Int32Type(BitPacker.Unpack(buffer, Int32Type.SizeInBits, 36));
-
-        return new ProductPriceChangedIntegrationEvent(productId, oldPrice, newPrice);
+        base.Pack(buffer, index, bitIndex);
+        ProductId.Pack(buffer, index + 2, bitIndex);
+        OldPrice.Pack(buffer, index + 6,bitIndex); 
+        NewPrice.Pack(buffer, index + 10, bitIndex + 2);       
     }
 }
 

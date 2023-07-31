@@ -3,21 +3,23 @@
 
 namespace SharedKernel.Serialization;
 
-public static class BitPacker
-{    
-    public static void PackIntoBuffer(IBitPackable bitPackable, byte[] buffer, int index = 0, int bitIndex = 7)
+public static class BitVector8
+{
+    public static void Pack(ReadOnlySpan<byte> input, int sizeInBits, byte[] buffer, int index = 0, int bitIndex = 7)
     {
-        foreach(var descriptor in bitPackable.ToDescriptors())
+        for (int j = 0; j < input.Length; j++)
         {
-            (int value, int numberOfBits) = descriptor;
+            int numberOfBits = sizeInBits % 8 > 0 ? sizeInBits % 8 : 8;
 
-            while(numberOfBits > 0)
+            int value = input[j];
+
+            while (numberOfBits > 0)
             {
                 if (index >= buffer.Length) return;
 
                 var numberOfBitsThatCanBePacked = bitIndex + 1;
 
-                if(numberOfBits <= numberOfBitsThatCanBePacked)
+                if (numberOfBits <= numberOfBitsThatCanBePacked)
                 {
                     var mask = (1 << numberOfBits) - 1;
 
@@ -25,7 +27,7 @@ public static class BitPacker
 
                     bitIndex -= numberOfBits;
 
-                    if(bitIndex == -1)
+                    if (bitIndex == -1)
                     {
                         bitIndex = 7;
                         index++;
@@ -42,17 +44,18 @@ public static class BitPacker
                     numberOfBits -= +numberOfBitsThatCanBePacked;
                 }
             }
+
+            sizeInBits -= numberOfBits;
         }
     }
 
-
     public static byte[] Unpack(byte[] buffer, int take, int index = 0, int offset = 0)
     {
-        var size = take + offset + 7 >>> 3;
+        int size = (take + offset + 7) / 8;
 
-        var source = CreateSource(buffer, index, size, offset);
+        ReadOnlySpan<byte> source = Slice(buffer, index, size, offset);
 
-        var destination = new byte[take + 7 >>> 3];
+        byte[] destination = new byte[(take + 7) / 8];
 
         int sourceIndex = 0;
 
@@ -95,9 +98,9 @@ public static class BitPacker
         return destination;
     }
 
-    public static Span<byte> CreateSource(byte[] buffer, int index, int size, int offset)
+    public static Span<byte> Slice(byte[] buffer, int index, int size, int offset)
     {
-        if(offset == 0) return new Span<byte>(buffer, index, size);
+        if (offset == 0) return new Span<byte>(buffer, index, size);
 
         if (size == 1)
         {
@@ -122,4 +125,5 @@ public static class BitPacker
 
         return destinantion;
     }
+
 }
