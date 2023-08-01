@@ -1,7 +1,6 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Integration.Events;
 using IO.Compression;
 using IO.Compression.Primitives;
 using Microsoft.Extensions.Logging;
@@ -24,7 +23,7 @@ public class EventBus: IEventBus
         _receiver = clientFactory.Create();
     }
 
-    public async Task PublishAsync(IntegrationEvent @event)
+    public async Task PublishAsync(EventBusMessage @event)
     {        
         _logger.LogInformation("Publishing event. {0}", @event.Id);
 

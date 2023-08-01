@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using EventBus.Udp;
-using Integration.Events;
 
 namespace Catalog.Core.IntegrationEvents;
 
@@ -19,14 +18,14 @@ public class CatalogIntegrationEventService: ICatalogIntegrationEventService
         _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
     }
 
-    public async Task PublishThroughEventBusAsync(IntegrationEvent evt)
+    public async Task PublishThroughEventBusAsync(EventBusMessage evt)
     {
         _logger.LogInformation("PublishThroughEventBusAsync");
 
         await _eventBus.PublishAsync(evt);
     }
 
-    public Task SaveEventAndCatalogContextChangesAsync(IntegrationEvent evt)
+    public Task SaveEventAndCatalogContextChangesAsync(EventBusMessage evt)
     {
         throw new NotImplementedException();
     }
