@@ -4,7 +4,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
-using SharedKernel;
+using Services.Common;
 using Basket.Api;
 
 namespace Microsoft.Extensions.DependencyInjection;

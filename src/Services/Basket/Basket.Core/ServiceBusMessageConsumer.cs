@@ -28,7 +28,6 @@ public class ServiceBusMessageConsumer: BackgroundService
             ( new GuidType("f9636be0-6148-4bb4-adf9-dc0e7ad36766"), x => new ProductPriceChangedIntegrationEvent(x))
         };
 
-
         _eventBus.Subscribe(r, x =>
         {
             Console.WriteLine("?");

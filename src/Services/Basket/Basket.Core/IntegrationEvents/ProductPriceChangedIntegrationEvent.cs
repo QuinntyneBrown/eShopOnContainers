@@ -6,7 +6,7 @@ using IO.Compression.Primitives;
 
 namespace Basket.Core.IntegrationEvents;
 
-public record ProductPriceChangedIntegrationEvent: IPackable
+public record ProductPriceChangedIntegrationEvent: IPackable, INotification
 {
     public ProductPriceChangedIntegrationEvent(
         GuidType productId,
