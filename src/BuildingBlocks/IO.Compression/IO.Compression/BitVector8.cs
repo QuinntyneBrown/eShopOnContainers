@@ -5,7 +5,7 @@ namespace IO.Compression;
 
 public static class BitVector8
 {
-    public static void Pack(ReadOnlySpan<byte> input, int sizeInBits, byte[] buffer, int index = 0, int bitIndex = 7)
+    public static void Pack(ReadOnlySpan<byte> input, int sizeInBits, Span<byte> buffer, int index = 0, int bitIndex = 7)
     {
         for (int j = 0; j < input.Length; j++)
         {

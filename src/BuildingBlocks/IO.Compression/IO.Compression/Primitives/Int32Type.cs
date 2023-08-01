@@ -19,9 +19,9 @@ public struct Int32Type: IEquatable<Int32Type>, IPackable
 
     public Int32 Value { get; }
 
-    public static int SizeInBits = 32;
+    public int SizeInBits => 32;
 
-    public void Pack(byte[] buffer, int index, int bitIndex)
+    public void Pack(Span<byte> buffer, int index, int bitIndex)
     {
         Span<byte> bytes = stackalloc byte[4];
 

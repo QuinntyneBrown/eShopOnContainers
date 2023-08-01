@@ -8,7 +8,4 @@ namespace EventBus.Udp;
 public interface IUdpClientFactory
 {
     UdpClient Create();
-
 }
-
-

@@ -5,6 +5,7 @@ namespace IO.Compression;
 
 public interface IPackable
 {
-    void Pack(byte[] buffer, int index, int bitIndex);
+    void Pack(Span<byte> buffer, int index, int bitIndex);
+    int SizeInBits { get; }
 }
 

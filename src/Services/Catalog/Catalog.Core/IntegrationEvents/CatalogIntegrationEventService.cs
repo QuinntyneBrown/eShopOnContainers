@@ -30,5 +30,3 @@ public class CatalogIntegrationEventService: ICatalogIntegrationEventService
         throw new NotImplementedException();
     }
 }
-
-

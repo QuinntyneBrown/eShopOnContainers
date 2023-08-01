@@ -4,33 +4,35 @@
 namespace IO.Compression.Primitives;
 
 
-public class StringType: IEquatable<StringType>, IPackable
+public class String255Type: IEquatable<String255Type>, IPackable
 {
-    public StringType(string value)
+    public String255Type(string value)
     {
         Value = value;
     }
 
+    public int SizeInBits => 255 * 8;
+
     public string Value { get; }
 
-    public bool Equals(StringType? other)
+    public bool Equals(String255Type? other)
     {
         throw new NotImplementedException();
     }
 
-    public void Pack(byte[] buffer, int index, int bitIndex)
+    public void Pack(Span<byte> buffer, int index, int bitIndex)
     {
         throw new NotImplementedException();
     }
 
-    public static implicit operator string(StringType type)
+    public static implicit operator string(String255Type type)
     {
         return type.Value;
     }
 
-    public static explicit operator StringType(string value)
+    public static explicit operator String255Type(string value)
     {
-        return new StringType(value);
+        return new String255Type(value);
     }
 
 }

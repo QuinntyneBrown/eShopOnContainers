@@ -22,13 +22,15 @@ public struct BoolType: IEquatable<BoolType>, IPackable
         return Value == other.Value;
     }
 
-    public void Pack(byte[] buffer, int index, int bitIndex)
+    public int SizeInBits => 1;
+
+    public void Pack(Span<byte> buffer, int index, int bitIndex)
     {
         Span<byte> bytes = stackalloc byte[1];
 
         bytes[0] = (byte)(Value == true ? 1: 0);
 
-        BitVector8.Pack(bytes, 1, buffer, index, bitIndex);
+        BitVector8.Pack(bytes, SizeInBits, buffer, index, bitIndex);
     }
 
     public static implicit operator bool(BoolType type)
