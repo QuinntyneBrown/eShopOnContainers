@@ -11,7 +11,7 @@ public interface IEventBus
 
     Task StartAsync(CancellationToken cancellationToken = default);
 
-    void Subscribe(GuidType guid, Action<byte[]> onNext);
+    void Subscribe(List<(GuidType id, Func<byte[], object> factory)> r, Action<object> onNext);
 
 }
 

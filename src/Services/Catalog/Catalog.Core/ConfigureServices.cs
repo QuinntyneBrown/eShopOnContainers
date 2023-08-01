@@ -11,6 +11,8 @@ public static class ConfigureServices
 
         services.AddMediatR(configuration => configuration.RegisterServicesFromAssemblyContaining<ICatalogDbContext>());
         services.AddValidatorsFromAssemblyContaining<ICatalogDbContext>();
+        services.AddHostedService<EventBusMessageProducer>();
+        services.AddUdpServices();
     }
 
 }

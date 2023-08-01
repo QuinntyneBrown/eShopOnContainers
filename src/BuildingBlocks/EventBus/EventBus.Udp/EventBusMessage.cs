@@ -8,26 +8,32 @@ namespace EventBus.Udp;
 
 public class EventBusMessage: IPackable {
 
-    public EventBusMessage(GuidType id, IPackable body)
+    public EventBusMessage(GuidType id, IPackable payload)
     {
-        Span<byte> buffer = stackalloc byte[body.SizeInBits + 7 / 8];
+        MessageHeader = new MessageHeader
+        {
+            Id = id,
+            PayloadSizeInBits = payload.SizeInBits
+        };
 
-        body.Pack(buffer, 0, 0);
+        Body = new byte[(payload.SizeInBits + 7) / 8];
+
+        payload.Pack(Body);
+
+        SizeInBits = (Int16Type)(MessageHeader.SizeInBits + payload.SizeInBits);
     }
-
+    public MessageHeader MessageHeader { get; }
     public GuidType Id { get; set; }
+    
     public byte[] Body { get; set; }
 
-    public int SizeInBits { get; set; }
-
-    public byte[] Pack()
-    {
-        throw new NotImplementedException();
-    }
+    public Int16Type SizeInBits { get; private set; }
 
     public void Pack(Span<byte> buffer, int index, int bitIndex)
     {
-        throw new NotImplementedException();
+        MessageHeader.Pack(buffer, 0, bitIndex);
+
+        BitVector8.Pack(Body, MessageHeader.PayloadSizeInBits, buffer, 18, bitIndex);
     }
 }
 

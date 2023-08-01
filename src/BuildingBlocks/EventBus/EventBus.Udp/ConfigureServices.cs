@@ -7,13 +7,10 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class ConfigureServices
 {
-    public static void AddUdpServices(this IServiceCollection services)
+    public static void AddUdpServices(this IServiceCollection services)        
     {
-
+        services.AddSingleton<ISender, Sender>();
         services.AddSingleton<IUdpClientFactory, UdpClientFactory>();
         services.AddSingleton<IEventBus, EventBus.Udp.EventBus>();
     }
-
 }
-
-

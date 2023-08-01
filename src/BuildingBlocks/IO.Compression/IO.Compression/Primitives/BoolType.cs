@@ -22,7 +22,7 @@ public struct BoolType: IEquatable<BoolType>, IPackable
         return Value == other.Value;
     }
 
-    public int SizeInBits => 1;
+    public Int16Type SizeInBits => (Int16Type)1;
 
     public void Pack(Span<byte> buffer, int index, int bitIndex)
     {

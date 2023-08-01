@@ -9,7 +9,6 @@ public static class LinqExtensions
     {
         return queryable.Skip(pageSize * pageIndex).Take(pageSize);
     }
-
 }
 
 

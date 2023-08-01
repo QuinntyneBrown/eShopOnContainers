@@ -5,17 +5,27 @@ namespace IO.Compression.Primitives;
 
 public struct GuidType: IEquatable<GuidType>, IPackable
 {
+    public GuidType()
+    {
+        var guid = Guid.NewGuid();
+
+        Value = guid;
+    }
     public GuidType(Guid value)
     {
         Value = value;
     }
 
+    public GuidType(string value)
+    {
+        Value = new Guid(value);
+    }
     public GuidType(byte[] bytes)
     {
         Value = new Guid(bytes);
     }
 
-    public int SizeInBits => 16;
+    public Int16Type SizeInBits => (Int16Type)128;
     public Guid Value { get; }
 
     public void Pack(Span<byte> buffer, int index, int bitIndex)

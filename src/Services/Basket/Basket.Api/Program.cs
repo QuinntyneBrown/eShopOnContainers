@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Basket.Infrastructure.Data;
+using EventBus.Udp;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
@@ -25,6 +26,13 @@ try
     builder.Services.AddApiServices();
 
     var app = builder.Build();
+
+    var eventBus = app.Services.GetRequiredService<IEventBus>();
+
+    _ = Task.Run(() =>
+    {
+        eventBus.StartAsync();
+    });
 
     app.UseSwagger(options => options.SerializeAsV2 = true);
 

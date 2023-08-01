@@ -19,7 +19,7 @@ public struct Int32Type: IEquatable<Int32Type>, IPackable
 
     public Int32 Value { get; }
 
-    public int SizeInBits => 32;
+    public Int16Type SizeInBits => (Int16Type)32;
 
     public void Pack(Span<byte> buffer, int index, int bitIndex)
     {

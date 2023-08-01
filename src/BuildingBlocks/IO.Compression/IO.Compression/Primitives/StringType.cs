@@ -11,7 +11,7 @@ public class String255Type: IEquatable<String255Type>, IPackable
         Value = value;
     }
 
-    public int SizeInBits => 255 * 8;
+    public Int16Type SizeInBits =>  (Int16Type)(255 * 8);
 
     public string Value { get; }
 

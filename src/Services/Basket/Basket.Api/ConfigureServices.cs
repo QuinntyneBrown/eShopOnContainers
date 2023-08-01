@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using SharedKernel;
+using Basket.Api;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -50,6 +51,8 @@ public static class ConfigureServices {
             options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 
         }).AddSwaggerGenNewtonsoftSupport();
+
+        
 
         services.AddCors(options => options.AddPolicy("CorsPolicy",
             builder => builder

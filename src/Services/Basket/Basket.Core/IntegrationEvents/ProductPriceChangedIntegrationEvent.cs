@@ -4,7 +4,7 @@
 using IO.Compression;
 using IO.Compression.Primitives;
 
-namespace Catalog.Core.IntegrationEvents;
+namespace Basket.Core.IntegrationEvents;
 
 public record ProductPriceChangedIntegrationEvent: IPackable
 {
