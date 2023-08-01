@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\IO.Compression\IO.Compression\IO.Compression.csproj" />
     <ProjectReference Include="..\..\SharedKernel\SharedKernel\SharedKernel.csproj" />
   </ItemGroup>
 

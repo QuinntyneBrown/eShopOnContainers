@@ -1,13 +1,13 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Integration;
 using Integration.Events;
-using SharedKernel;
+using IO.Compression;
+using IO.Compression.Primitives;
 using Microsoft.Extensions.Logging;
 using System.Net.Sockets;
 using System.Reactive.Linq;
-using SharedKernel.Serialization;
+
 
 namespace EventBus.Udp;
 

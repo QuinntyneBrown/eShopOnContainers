@@ -1,7 +1,7 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-namespace SharedKernel;
+namespace IO.Compression.Primitives;
 
 public struct GuidType: IEquatable<GuidType>, IPackable
 {
@@ -31,7 +31,6 @@ public struct GuidType: IEquatable<GuidType>, IPackable
     public override int GetHashCode() => Value.GetHashCode();
 
     public static bool operator !=(GuidType lhs, GuidType rhs) => !(lhs == rhs);
-
 
     public static implicit operator Guid(GuidType type)
     {

@@ -3,7 +3,7 @@
 
 using System.Buffers.Binary;
 
-namespace SharedKernel;
+namespace IO.Compression.Primitives;
 
 public struct Int32Type: IEquatable<Int32Type>, IPackable
 {

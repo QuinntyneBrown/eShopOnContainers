@@ -3,7 +3,6 @@
 
 namespace SharedKernel.Abstractions;
 
-
 public abstract class ValueObject
 {
     protected abstract IEnumerable<object> GetEqualityComponents();
