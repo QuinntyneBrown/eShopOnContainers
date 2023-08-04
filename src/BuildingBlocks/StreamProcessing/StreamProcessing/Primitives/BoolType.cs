@@ -3,7 +3,7 @@
 
 namespace StreamProcessing.Primitives;
 
-public record struct BoolType: IPackable
+public record struct BoolType: IEncodable
 {
     public BoolType(bool value)
     {
@@ -19,13 +19,13 @@ public record struct BoolType: IPackable
 
     public Int16Type SizeInBits => (Int16Type)1;
 
-    public void Pack(Span<byte> buffer, int index, int bitIndex)
+    public void Encode(Span<byte> buffer, int index, int bitIndex)
     {
         Span<byte> bytes = stackalloc byte[1];
 
         bytes[0] = (byte)(Value == true ? 1: 0);
 
-        BitVector8.Deflate(bytes, SizeInBits, buffer, index, bitIndex);
+        BinaryEncoder.Encode(bytes, SizeInBits, buffer, index, bitIndex);
     }
 
     public static implicit operator bool(BoolType type)

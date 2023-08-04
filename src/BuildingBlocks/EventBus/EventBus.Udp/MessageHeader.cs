@@ -6,12 +6,12 @@ using StreamProcessing.Primitives;
 
 namespace EventBus.Udp;
 
-public struct MessageHeader : IPackable
+public struct MessageHeader : IEncodable
 {
     public MessageHeader(byte[] buffer)
     {
-        Id = new GuidType(BitVector8.Inflate(buffer, 128, 0, 0));
-        PayloadSizeInBits = new Int16Type(BitVector8.Inflate(buffer, 16, 16, 0));
+        Id = new GuidType(BinaryDecoder.Decode(buffer, 128, 0, 0));
+        PayloadSizeInBits = new Int16Type(BinaryDecoder.Decode(buffer, 16, 16, 0));
     }
 
     public Int16Type SizeInBits => (Int16Type)144;
@@ -20,10 +20,10 @@ public struct MessageHeader : IPackable
 
     public Int16Type PayloadSizeInBits { get; init; }
 
-    public void Pack(Span<byte> buffer, int index = 0, int bitIndex = 7)
+    public void Encode(Span<byte> buffer, int index = 0, int bitIndex = 7)
     {
-        Id.Pack(buffer, index, bitIndex);
-        PayloadSizeInBits.Pack(buffer, index + 16, bitIndex);
+        Id.Encode(buffer, index, bitIndex);
+        PayloadSizeInBits.Encode(buffer, index + 16, bitIndex);
     }
 }
 

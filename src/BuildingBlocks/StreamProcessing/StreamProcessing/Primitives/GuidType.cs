@@ -3,7 +3,7 @@
 
 namespace StreamProcessing.Primitives;
 
-public record struct GuidType: IPackable
+public record struct GuidType: IEncodable
 {
     public GuidType()
     {
@@ -28,9 +28,9 @@ public record struct GuidType: IPackable
     public Int16Type SizeInBits => (Int16Type)128;
     public Guid Value { get; }
 
-    public void Pack(Span<byte> buffer, int index, int bitIndex)
+    public void Encode(Span<byte> buffer, int index, int bitIndex)
     {        
-        BitVector8.Deflate(Value.ToByteArray(), SizeInBits, buffer, index, bitIndex);
+        BinaryEncoder.Encode(Value.ToByteArray(), SizeInBits, buffer, index, bitIndex);
     }
 
     public bool Equals(GuidType other) => Value.Equals(other.Value);

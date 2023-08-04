@@ -3,54 +3,9 @@
 
 namespace StreamProcessing;
 
-
-public static class BitVector8
+public static class BinaryDecoder
 {
-    public static void Deflate(ReadOnlySpan<byte> input, int sizeInBits, Span<byte> buffer, int index = 0, int bitIndex = 7)
-    {
-        for (int j = 0; j < input.Length; j++)
-        {
-            int numberOfBits = sizeInBits % 8 > 0 ? sizeInBits % 8 : 8;
-
-            sizeInBits -= numberOfBits;
-
-            int value = input[j];
-
-            while (numberOfBits > 0)
-            {
-                if (index >= buffer.Length) return;
-
-                var numberOfBitsThatCanBePacked = bitIndex + 1;
-
-                if (numberOfBits <= numberOfBitsThatCanBePacked)
-                {
-                    var mask = (1 << numberOfBits) - 1;
-
-                    buffer[index] |= (byte)((value & mask) << (numberOfBitsThatCanBePacked - numberOfBits));
-
-                    bitIndex -= numberOfBits;
-
-                    if (bitIndex == -1)
-                    {
-                        bitIndex = 7;
-                        index++;
-                    }
-
-                    numberOfBits = 0;
-                }
-                else
-                {
-                    var mask = ((1 << numberOfBitsThatCanBePacked) - 1) << (numberOfBits - numberOfBitsThatCanBePacked);
-                    buffer[index] |= (byte)((value & mask) >>> (numberOfBits - numberOfBitsThatCanBePacked));
-                    bitIndex = 7;
-                    index++;
-                    numberOfBits -= +numberOfBitsThatCanBePacked;
-                }
-            }
-        }
-    }
-
-    public static byte[] Inflate(byte[] buffer, int take, int index = 0, int offset = 0)
+    public static byte[] Decode(byte[] buffer, int take, int index = 0, int offset = 0)
     {
         int size = (take + offset + 7) / 8;
 
@@ -116,3 +71,4 @@ public static class BitVector8
         return destinantion;
     }
 }
+

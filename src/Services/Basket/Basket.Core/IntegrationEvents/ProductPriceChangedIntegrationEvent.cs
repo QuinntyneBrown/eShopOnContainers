@@ -6,7 +6,7 @@ using StreamProcessing.Primitives;
 
 namespace Basket.Core.IntegrationEvents;
 
-public record ProductPriceChangedIntegrationEvent: IPackable, INotification
+public record ProductPriceChangedIntegrationEvent: IEncodable, INotification
 {
     public ProductPriceChangedIntegrationEvent(
         GuidType productId,
@@ -20,9 +20,9 @@ public record ProductPriceChangedIntegrationEvent: IPackable, INotification
 
     public ProductPriceChangedIntegrationEvent(byte[] buffer)
     {
-        ProductId = new GuidType(BitVector8.Inflate(buffer, 128, 0));
-        OldPrice = new Int32Type(BitVector8.Inflate(buffer, 32, 16));
-        NewPrice = new Int32Type(BitVector8.Inflate(buffer, 32, 20));
+        ProductId = new GuidType(BinaryDecoder.Decode(buffer, 128, 0));
+        OldPrice = new Int32Type(BinaryDecoder.Decode(buffer, 32, 16));
+        NewPrice = new Int32Type(BinaryDecoder.Decode(buffer, 32, 20));
     }
     
     public ProductPriceChangedIntegrationEvent(
@@ -41,11 +41,11 @@ public record ProductPriceChangedIntegrationEvent: IPackable, INotification
 
     public Int16Type SizeInBits => (Int16Type)192;
 
-    public void Pack(Span<byte> buffer, int index = 0, int bitIndex = 7)
+    public void Encode(Span<byte> buffer, int index = 0, int bitIndex = 7)
     {
-        ProductId.Pack(buffer, index, bitIndex);
-        OldPrice.Pack(buffer, index + 16, bitIndex); 
-        NewPrice.Pack(buffer, index + 20, bitIndex);       
+        ProductId.Encode(buffer, index, bitIndex);
+        OldPrice.Encode(buffer, index + 16, bitIndex); 
+        NewPrice.Encode(buffer, index + 20, bitIndex);       
     }
 
 }

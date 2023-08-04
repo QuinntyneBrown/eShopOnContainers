@@ -5,9 +5,9 @@ using StreamProcessing.Primitives;
 
 namespace StreamProcessing;
 
-public interface IPackable
+public interface IEncodable
 {
-    void Pack(Span<byte> buffer, int index= 0, int bitIndex = 7);
+    void Encode(Span<byte> buffer, int index= 0, int bitIndex = 7);
     Int16Type SizeInBits { get; }
 }
 

@@ -4,7 +4,7 @@
 namespace StreamProcessing.Primitives;
 
 
-public record struct String255Type: IPackable
+public record struct String255Type: IEncodable
 {
     public String255Type(string value)
     {
@@ -15,7 +15,7 @@ public record struct String255Type: IPackable
 
     public string Value { get; }
 
-    public void Pack(Span<byte> buffer, int index, int bitIndex)
+    public void Encode(Span<byte> buffer, int index, int bitIndex)
     {
         throw new NotImplementedException();
     }

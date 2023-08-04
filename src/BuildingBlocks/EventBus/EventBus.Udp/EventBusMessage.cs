@@ -6,9 +6,9 @@ using StreamProcessing.Primitives;
 
 namespace EventBus.Udp;
 
-public class EventBusMessage: IPackable {
+public class EventBusMessage: IEncodable {
 
-    public EventBusMessage(GuidType id, IPackable payload)
+    public EventBusMessage(GuidType id, IEncodable payload)
     {
         MessageHeader = new MessageHeader
         {
@@ -18,7 +18,7 @@ public class EventBusMessage: IPackable {
 
         Body = new byte[(payload.SizeInBits + 7) / 8];
 
-        payload.Pack(Body);
+        payload.Encode(Body);
 
         SizeInBits = (Int16Type)(MessageHeader.SizeInBits + payload.SizeInBits);
     }
@@ -29,11 +29,11 @@ public class EventBusMessage: IPackable {
 
     public Int16Type SizeInBits { get; private set; }
 
-    public void Pack(Span<byte> buffer, int index, int bitIndex)
+    public void Encode(Span<byte> buffer, int index, int bitIndex)
     {
-        MessageHeader.Pack(buffer, 0, bitIndex);
+        MessageHeader.Encode(buffer, 0, bitIndex);
 
-        BitVector8.Deflate(Body, MessageHeader.PayloadSizeInBits, buffer, 18, bitIndex);
+        BinaryEncoder.Encode(Body, MessageHeader.PayloadSizeInBits, buffer, 18, bitIndex);
     }
 }
 

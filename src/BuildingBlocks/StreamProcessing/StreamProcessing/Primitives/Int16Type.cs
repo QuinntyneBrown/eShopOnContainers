@@ -5,7 +5,7 @@ using System.Buffers.Binary;
 
 namespace StreamProcessing.Primitives;
 
-public record struct Int16Type: IPackable
+public record struct Int16Type: IEncodable
 {
     public Int16Type(Int16 value)
     {
@@ -21,13 +21,13 @@ public record struct Int16Type: IPackable
 
     public Int16Type SizeInBits => (Int16Type)16;
 
-    public void Pack(Span<byte> buffer, int index, int bitIndex)
+    public void Encode(Span<byte> buffer, int index, int bitIndex)
     {
         Span<byte> bytes = stackalloc byte[4];
 
         BinaryPrimitives.WriteInt16BigEndian(bytes, Value);
 
-        BitVector8.Deflate(bytes, 16, buffer, index, bitIndex);
+        BinaryEncoder.Encode(bytes, 16, buffer, index, bitIndex);
     }
 
     public static implicit operator Int16(Int16Type type)

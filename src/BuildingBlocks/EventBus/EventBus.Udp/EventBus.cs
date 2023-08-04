@@ -1,10 +1,9 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using Microsoft.Extensions.Logging;
 using StreamProcessing;
 using StreamProcessing.Primitives;
-using Microsoft.Extensions.Logging;
-using System.Buffers.Binary;
 using System.Net.Sockets;
 using System.Reactive.Linq;
 
@@ -28,7 +27,7 @@ public class EventBus: IEventBus
 
         byte[] buffer = new byte[(@event.SizeInBits + 7) / 8];
 
-        @event.Pack(buffer, 0, 7);
+        @event.Encode(buffer, 0, 7);
 
         await _udpClient.SendAsync(buffer, buffer.Length, UdpClientFactory.MultiCastGroupIp, UdpClientFactory.BroadcastPort);
     }
@@ -42,20 +41,20 @@ public class EventBus: IEventBus
 
         bool Where(List<(GuidType id, Func<byte[], object> factory)> r, byte[] buffer)
         {
-            var messageHeader = new MessageHeader(BitVector8.Inflate(buffer, 144));
+            var messageHeader = new MessageHeader(BinaryDecoder.Decode(buffer, 144));
 
             return r.Select(x => x.id).Contains(messageHeader.Id);
         }
 
         object Select(List<(GuidType id, Func<byte[], object> factory)> r, byte[] buffer)
         {
-            var messageHeader = new MessageHeader(BitVector8.Inflate(buffer, 144));
+            var messageHeader = new MessageHeader(BinaryDecoder.Decode(buffer, 144));
 
             Span<byte> input = stackalloc byte[2];
 
             int payloadSizeInBits = messageHeader.PayloadSizeInBits;
 
-            var payload = BitVector8.Inflate(buffer, payloadSizeInBits, 18);
+            var payload = BinaryDecoder.Decode(buffer, payloadSizeInBits, 18);
 
             return r.Single(x => x.id == messageHeader.Id).factory(payload);
         }
