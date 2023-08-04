@@ -12,5 +12,9 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.2" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\BuildingBlocks\IO.Compression\IO.Compression\IO.Compression.csproj" />
+  </ItemGroup>
   
 </Project>

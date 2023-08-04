@@ -1,10 +1,10 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Catalog.Core.IntegrationEvents;
 using EventBus.Udp;
 using IO.Compression.Primitives;
 using Microsoft.Extensions.Hosting;
+using Services.Common.IntegrationEvents;
 
 namespace Catalog.Core;
 public class EventBusMessageProducer : BackgroundService

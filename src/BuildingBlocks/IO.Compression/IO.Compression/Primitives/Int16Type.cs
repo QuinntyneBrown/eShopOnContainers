@@ -5,7 +5,7 @@ using System.Buffers.Binary;
 
 namespace IO.Compression.Primitives;
 
-public struct Int16Type: IEquatable<Int16Type>, IPackable
+public record struct Int16Type: IPackable
 {
     public Int16Type(Int16 value)
     {
@@ -28,12 +28,6 @@ public struct Int16Type: IEquatable<Int16Type>, IPackable
         BinaryPrimitives.WriteInt16BigEndian(bytes, Value);
 
         BitVector8.Pack(bytes, 16, buffer, index, bitIndex);
-    }
-
-
-    public bool Equals(Int16Type other)
-    {
-        return Value == other.Value;
     }
 
     public static implicit operator Int16(Int16Type type)

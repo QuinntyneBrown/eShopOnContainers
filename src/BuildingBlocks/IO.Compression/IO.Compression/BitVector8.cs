@@ -3,6 +3,7 @@
 
 namespace IO.Compression;
 
+
 public static class BitVector8
 {
     public static void Pack(ReadOnlySpan<byte> input, int sizeInBits, Span<byte> buffer, int index = 0, int bitIndex = 7)
@@ -10,6 +11,8 @@ public static class BitVector8
         for (int j = 0; j < input.Length; j++)
         {
             int numberOfBits = sizeInBits % 8 > 0 ? sizeInBits % 8 : 8;
+
+            sizeInBits -= numberOfBits;
 
             int value = input[j];
 
@@ -44,8 +47,6 @@ public static class BitVector8
                     numberOfBits -= +numberOfBitsThatCanBePacked;
                 }
             }
-
-            sizeInBits -= numberOfBits;
         }
     }
 
@@ -65,29 +66,18 @@ public static class BitVector8
 
         while (sourceIndex < source.Length && destinationIndex < destination.Length && take - unpackedBits > 0)
         {
-            int remainder = take % 8;
-
-            if ((take - unpackedBits) % 8 > 0)
+            if (take - unpackedBits > 8)
             {
-                var mask = (1 << 8) - 1 << (8 - remainder) & 0xFF;
-
-                destination[destinationIndex] = (byte)((source[sourceIndex] & mask) >> 8 - remainder);
-
-                unpackedBits += remainder;
-            }
-            else if (take - unpackedBits >= 8 && remainder > 0)
-            {
-                destination[destinationIndex] = (byte)(source[sourceIndex - 1] & (1 << 8 - remainder) - 1);
-
-                destination[destinationIndex] |= (byte)(source[sourceIndex] & (((1 << 8) - 1) >> 8 - remainder) << 8 - remainder);
-
+                destination[destinationIndex] = source[sourceIndex];
                 unpackedBits += 8;
             }
             else
             {
-                destination[destinationIndex] = source[sourceIndex];
+                var mask = (1 << 8) - 1 << (8 - (take - unpackedBits)) & 0xFF;
 
-                unpackedBits += 8;
+                destination[destinationIndex] = (byte)(source[sourceIndex] & mask);
+
+                unpackedBits += take;
             }
 
             destinationIndex++;
@@ -107,7 +97,7 @@ public static class BitVector8
             return new Span<byte>(new byte[1]
             {
                 (byte)(buffer[index] << offset)
-            }, index, size);
+            }, 0, 1);
         }
 
         Span<byte> destinantion = new byte[size];
@@ -125,5 +115,4 @@ public static class BitVector8
 
         return destinantion;
     }
-
 }

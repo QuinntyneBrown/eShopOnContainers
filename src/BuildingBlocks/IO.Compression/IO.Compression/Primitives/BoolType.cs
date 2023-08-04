@@ -3,7 +3,7 @@
 
 namespace IO.Compression.Primitives;
 
-public struct BoolType: IEquatable<BoolType>, IPackable
+public record struct BoolType: IPackable
 {
     public BoolType(bool value)
     {
@@ -16,11 +16,6 @@ public struct BoolType: IEquatable<BoolType>, IPackable
     }
 
     public bool Value { get; }
-
-    public bool Equals(BoolType other)
-    {
-        return Value == other.Value;
-    }
 
     public Int16Type SizeInBits => (Int16Type)1;
 

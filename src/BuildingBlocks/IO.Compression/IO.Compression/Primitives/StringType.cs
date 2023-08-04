@@ -4,7 +4,7 @@
 namespace IO.Compression.Primitives;
 
 
-public class String255Type: IEquatable<String255Type>, IPackable
+public record struct String255Type: IPackable
 {
     public String255Type(string value)
     {
@@ -14,11 +14,6 @@ public class String255Type: IEquatable<String255Type>, IPackable
     public Int16Type SizeInBits =>  (Int16Type)(255 * 8);
 
     public string Value { get; }
-
-    public bool Equals(String255Type? other)
-    {
-        throw new NotImplementedException();
-    }
 
     public void Pack(Span<byte> buffer, int index, int bitIndex)
     {

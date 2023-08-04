@@ -3,7 +3,7 @@
 
 namespace IO.Compression.Primitives;
 
-public struct GuidType: IEquatable<GuidType>, IPackable
+public record struct GuidType: IPackable
 {
     public GuidType()
     {
@@ -33,15 +33,9 @@ public struct GuidType: IEquatable<GuidType>, IPackable
         BitVector8.Pack(Value.ToByteArray(), SizeInBits, buffer, index, bitIndex);
     }
 
-    public override bool Equals(object? obj) => obj is GuidType other && Equals(other);
     public bool Equals(GuidType other) => Value.Equals(other.Value);
 
-    public static bool operator ==(GuidType left, GuidType right) => left.Equals(right);
-
-    //public override int GetHashCode() => (X, Y).GetHashCode();
     public override int GetHashCode() => Value.GetHashCode();
-
-    public static bool operator !=(GuidType lhs, GuidType rhs) => !(lhs == rhs);
 
     public static implicit operator Guid(GuidType type)
     {
