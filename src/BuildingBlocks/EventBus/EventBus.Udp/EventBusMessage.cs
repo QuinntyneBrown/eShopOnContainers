@@ -1,8 +1,8 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using IO.Compression;
-using IO.Compression.Primitives;
+using StreamProcessing;
+using StreamProcessing.Primitives;
 
 namespace EventBus.Udp;
 
@@ -33,7 +33,7 @@ public class EventBusMessage: IPackable {
     {
         MessageHeader.Pack(buffer, 0, bitIndex);
 
-        BitVector8.Pack(Body, MessageHeader.PayloadSizeInBits, buffer, 18, bitIndex);
+        BitVector8.Deflate(Body, MessageHeader.PayloadSizeInBits, buffer, 18, bitIndex);
     }
 }
 

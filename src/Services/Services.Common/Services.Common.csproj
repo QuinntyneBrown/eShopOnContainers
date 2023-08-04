@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\BuildingBlocks\IO.Compression\IO.Compression\IO.Compression.csproj" />
+    <ProjectReference Include="..\..\BuildingBlocks\StreamProcessing\StreamProcessing\StreamProcessing.csproj" />
   </ItemGroup>
   
 </Project>

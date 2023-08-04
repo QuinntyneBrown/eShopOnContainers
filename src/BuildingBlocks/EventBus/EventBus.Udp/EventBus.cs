@@ -1,8 +1,8 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using IO.Compression;
-using IO.Compression.Primitives;
+using StreamProcessing;
+using StreamProcessing.Primitives;
 using Microsoft.Extensions.Logging;
 using System.Buffers.Binary;
 using System.Net.Sockets;
@@ -42,20 +42,20 @@ public class EventBus: IEventBus
 
         bool Where(List<(GuidType id, Func<byte[], object> factory)> r, byte[] buffer)
         {
-            var messageHeader = new MessageHeader(BitVector8.Unpack(buffer, 144));
+            var messageHeader = new MessageHeader(BitVector8.Inflate(buffer, 144));
 
             return r.Select(x => x.id).Contains(messageHeader.Id);
         }
 
         object Select(List<(GuidType id, Func<byte[], object> factory)> r, byte[] buffer)
         {
-            var messageHeader = new MessageHeader(BitVector8.Unpack(buffer, 144));
+            var messageHeader = new MessageHeader(BitVector8.Inflate(buffer, 144));
 
             Span<byte> input = stackalloc byte[2];
 
             int payloadSizeInBits = messageHeader.PayloadSizeInBits;
 
-            var payload = BitVector8.Unpack(buffer, payloadSizeInBits, 18);
+            var payload = BitVector8.Inflate(buffer, payloadSizeInBits, 18);
 
             return r.Single(x => x.id == messageHeader.Id).factory(payload);
         }

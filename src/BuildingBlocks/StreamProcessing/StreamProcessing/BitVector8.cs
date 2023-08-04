@@ -1,12 +1,12 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-namespace IO.Compression;
+namespace StreamProcessing;
 
 
 public static class BitVector8
 {
-    public static void Pack(ReadOnlySpan<byte> input, int sizeInBits, Span<byte> buffer, int index = 0, int bitIndex = 7)
+    public static void Deflate(ReadOnlySpan<byte> input, int sizeInBits, Span<byte> buffer, int index = 0, int bitIndex = 7)
     {
         for (int j = 0; j < input.Length; j++)
         {
@@ -50,11 +50,11 @@ public static class BitVector8
         }
     }
 
-    public static byte[] Unpack(byte[] buffer, int take, int index = 0, int offset = 0)
+    public static byte[] Inflate(byte[] buffer, int take, int index = 0, int offset = 0)
     {
         int size = (take + offset + 7) / 8;
 
-        ReadOnlySpan<byte> source = Slice(buffer, index, size, offset);
+        ReadOnlySpan<byte> source = AllocateBuffer(buffer, index, size, offset);
 
         byte[] destination = new byte[(take + 7) / 8];
 
@@ -88,7 +88,7 @@ public static class BitVector8
         return destination;
     }
 
-    public static Span<byte> Slice(byte[] buffer, int index, int size, int offset)
+    public static Span<byte> AllocateBuffer(byte[] buffer, int index, int size, int offset)
     {
         if (offset == 0) return new Span<byte>(buffer, index, size);
 

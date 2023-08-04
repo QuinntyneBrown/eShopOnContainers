@@ -1,7 +1,7 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-namespace IO.Compression.Primitives;
+namespace StreamProcessing.Primitives;
 
 public record struct BoolType: IPackable
 {
@@ -25,7 +25,7 @@ public record struct BoolType: IPackable
 
         bytes[0] = (byte)(Value == true ? 1: 0);
 
-        BitVector8.Pack(bytes, SizeInBits, buffer, index, bitIndex);
+        BitVector8.Deflate(bytes, SizeInBits, buffer, index, bitIndex);
     }
 
     public static implicit operator bool(BoolType type)

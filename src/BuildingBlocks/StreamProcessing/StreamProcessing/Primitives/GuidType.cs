@@ -1,7 +1,7 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-namespace IO.Compression.Primitives;
+namespace StreamProcessing.Primitives;
 
 public record struct GuidType: IPackable
 {
@@ -30,7 +30,7 @@ public record struct GuidType: IPackable
 
     public void Pack(Span<byte> buffer, int index, int bitIndex)
     {        
-        BitVector8.Pack(Value.ToByteArray(), SizeInBits, buffer, index, bitIndex);
+        BitVector8.Deflate(Value.ToByteArray(), SizeInBits, buffer, index, bitIndex);
     }
 
     public bool Equals(GuidType other) => Value.Equals(other.Value);

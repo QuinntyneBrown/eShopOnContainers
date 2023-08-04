@@ -16,7 +16,7 @@ public class DeleteOrderRequestValidator: AbstractValidator<DeleteOrderRequest>
 
 public class DeleteOrderRequest: IRequest<DeleteOrderResponse>
 {
-    public GUid OrderId { get; set; }
+    public Guid OrderId { get; set; }
 }
 
 

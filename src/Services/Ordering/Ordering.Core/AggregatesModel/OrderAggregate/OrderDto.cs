@@ -5,7 +5,7 @@ namespace Ordering.Core.AggregatesModel.OrderAggregate;
 
 public class OrderDto
 {
-    public GUid OrderId { get; set; }
+    public Guid OrderId { get; set; }
     public string Description { get; set; }
 }
 

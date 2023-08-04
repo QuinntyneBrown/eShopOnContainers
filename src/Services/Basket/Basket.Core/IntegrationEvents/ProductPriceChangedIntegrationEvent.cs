@@ -1,8 +1,8 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using IO.Compression;
-using IO.Compression.Primitives;
+using StreamProcessing;
+using StreamProcessing.Primitives;
 
 namespace Basket.Core.IntegrationEvents;
 
@@ -20,9 +20,9 @@ public record ProductPriceChangedIntegrationEvent: IPackable, INotification
 
     public ProductPriceChangedIntegrationEvent(byte[] buffer)
     {
-        ProductId = new GuidType(BitVector8.Unpack(buffer, 128, 0));
-        OldPrice = new Int32Type(BitVector8.Unpack(buffer, 32, 16));
-        NewPrice = new Int32Type(BitVector8.Unpack(buffer, 32, 20));
+        ProductId = new GuidType(BitVector8.Inflate(buffer, 128, 0));
+        OldPrice = new Int32Type(BitVector8.Inflate(buffer, 32, 16));
+        NewPrice = new Int32Type(BitVector8.Inflate(buffer, 32, 20));
     }
     
     public ProductPriceChangedIntegrationEvent(

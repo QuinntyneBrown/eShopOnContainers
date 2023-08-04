@@ -1,8 +1,8 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using IO.Compression;
-using IO.Compression.Primitives;
+using StreamProcessing;
+using StreamProcessing.Primitives;
 
 namespace EventBus.Udp;
 
@@ -10,8 +10,8 @@ public struct MessageHeader : IPackable
 {
     public MessageHeader(byte[] buffer)
     {
-        Id = new GuidType(BitVector8.Unpack(buffer, 128, 0, 0));
-        PayloadSizeInBits = new Int16Type(BitVector8.Unpack(buffer, 16, 16, 0));
+        Id = new GuidType(BitVector8.Inflate(buffer, 128, 0, 0));
+        PayloadSizeInBits = new Int16Type(BitVector8.Inflate(buffer, 16, 16, 0));
     }
 
     public Int16Type SizeInBits => (Int16Type)144;

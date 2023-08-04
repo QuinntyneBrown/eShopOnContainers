@@ -3,7 +3,7 @@
 
 using System.Buffers.Binary;
 
-namespace IO.Compression.Primitives;
+namespace StreamProcessing.Primitives;
 
 public record struct Int16Type: IPackable
 {
@@ -27,7 +27,7 @@ public record struct Int16Type: IPackable
 
         BinaryPrimitives.WriteInt16BigEndian(bytes, Value);
 
-        BitVector8.Pack(bytes, 16, buffer, index, bitIndex);
+        BitVector8.Deflate(bytes, 16, buffer, index, bitIndex);
     }
 
     public static implicit operator Int16(Int16Type type)

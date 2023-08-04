@@ -16,7 +16,7 @@ public class UpdateBuyerRequestValidator: AbstractValidator<UpdateBuyerRequest>
 
 public class UpdateBuyerRequest: IRequest<UpdateBuyerResponse>
 {
-    public guid BuyerId { get; set; }
+    public Guid BuyerId { get; set; }
 }
 
 

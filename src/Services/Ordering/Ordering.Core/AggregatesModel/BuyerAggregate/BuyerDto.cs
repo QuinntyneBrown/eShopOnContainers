@@ -5,7 +5,7 @@ namespace Ordering.Core.AggregatesModel.BuyerAggregate;
 
 public class BuyerDto
 {
-    public guid BuyerId { get; set; }
+    public Guid BuyerId { get; set; }
 }
 
 

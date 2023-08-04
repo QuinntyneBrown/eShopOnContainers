@@ -16,7 +16,7 @@ public class DeleteBuyerRequestValidator: AbstractValidator<DeleteBuyerRequest>
 
 public class DeleteBuyerRequest: IRequest<DeleteBuyerResponse>
 {
-    public guid BuyerId { get; set; }
+    public Guid BuyerId { get; set; }
 }
 
 

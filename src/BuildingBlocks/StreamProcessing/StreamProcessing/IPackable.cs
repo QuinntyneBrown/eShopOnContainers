@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using IO.Compression.Primitives;
+using StreamProcessing.Primitives;
 
-namespace IO.Compression;
+namespace StreamProcessing;
 
 public interface IPackable
 {

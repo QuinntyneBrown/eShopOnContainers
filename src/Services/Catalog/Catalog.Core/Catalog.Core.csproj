@@ -20,7 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\BuildingBlocks\EventBus\EventBus.Udp\EventBus.Udp.csproj" />
-    <ProjectReference Include="..\..\..\BuildingBlocks\IO.Compression\IO.Compression\IO.Compression.csproj" />
+    <ProjectReference Include="..\..\Services.Common\Services.Common.csproj" />
   </ItemGroup>
 
 

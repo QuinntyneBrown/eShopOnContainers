@@ -17,7 +17,7 @@ public class UpdateOrderRequestValidator: AbstractValidator<UpdateOrderRequest>
 
 public class UpdateOrderRequest: IRequest<UpdateOrderResponse>
 {
-    public GUid OrderId { get; set; }
+    public Guid OrderId { get; set; }
     public string Description { get; set; }
 }
 
