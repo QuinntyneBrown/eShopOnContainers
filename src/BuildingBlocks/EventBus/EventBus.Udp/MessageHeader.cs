@@ -6,7 +6,7 @@ using StreamProcessing.Primitives;
 
 namespace EventBus.Udp;
 
-public struct MessageHeader : IEncodable
+public struct MessageHeader : ICodable
 {
     public MessageHeader(byte[] buffer)
     {

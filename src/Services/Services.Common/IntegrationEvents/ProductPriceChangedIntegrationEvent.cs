@@ -6,7 +6,7 @@ using StreamProcessing.Primitives;
 
 namespace Services.Common.IntegrationEvents;
 
-public record ProductPriceChangedIntegrationEvent: IEncodable
+public record ProductPriceChangedIntegrationEvent: ICodable
 {
     public ProductPriceChangedIntegrationEvent(
         GuidType productId,

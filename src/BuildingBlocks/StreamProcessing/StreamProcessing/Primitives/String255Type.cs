@@ -4,7 +4,7 @@
 namespace StreamProcessing.Primitives;
 
 
-public record struct String255Type: IEncodable
+public readonly record struct String255Type: ICodable
 {
     public String255Type(string value)
     {

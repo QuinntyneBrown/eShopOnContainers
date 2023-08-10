@@ -6,9 +6,9 @@ using StreamProcessing.Primitives;
 
 namespace EventBus.Udp;
 
-public class EventBusMessage: IEncodable {
+public class EventBusMessage: ICodable {
 
-    public EventBusMessage(GuidType id, IEncodable payload)
+    public EventBusMessage(GuidType id, ICodable payload)
     {
         MessageHeader = new MessageHeader
         {

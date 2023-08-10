@@ -6,7 +6,7 @@ using StreamProcessing.Primitives;
 
 namespace Basket.Core.IntegrationEvents;
 
-public record ProductPriceChangedIntegrationEvent: IEncodable, INotification
+public record ProductPriceChangedIntegrationEvent: ICodable, INotification
 {
     public ProductPriceChangedIntegrationEvent(
         GuidType productId,

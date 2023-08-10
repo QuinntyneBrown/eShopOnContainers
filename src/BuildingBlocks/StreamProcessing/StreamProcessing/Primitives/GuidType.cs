@@ -3,7 +3,7 @@
 
 namespace StreamProcessing.Primitives;
 
-public record struct GuidType: IEncodable
+public record struct GuidType: ICodable
 {
     public GuidType()
     {

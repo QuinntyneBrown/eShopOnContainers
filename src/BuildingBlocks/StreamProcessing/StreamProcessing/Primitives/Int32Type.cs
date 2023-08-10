@@ -5,7 +5,7 @@ using System.Buffers.Binary;
 
 namespace StreamProcessing.Primitives;
 
-public record struct Int32Type: IEncodable
+public readonly record struct Int32Type: ICodable
 {
     public Int32Type(Int32 value)
     {

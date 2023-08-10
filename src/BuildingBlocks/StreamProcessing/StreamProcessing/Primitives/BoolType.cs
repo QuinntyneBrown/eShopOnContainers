@@ -3,7 +3,7 @@
 
 namespace StreamProcessing.Primitives;
 
-public record struct BoolType: IEncodable
+public readonly record struct BoolType: ICodable
 {
     public BoolType(bool value)
     {

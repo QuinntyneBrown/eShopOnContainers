@@ -55,20 +55,20 @@ public static class BinaryDecoder
             }, 0, 1);
         }
 
-        Span<byte> destinantion = new byte[size];
+        Span<byte> destination = new byte[size];
 
         for (int i = index; i < size + index - 1; i++)
         {
-            destinantion[i - index] = (byte)(buffer[i] << offset);
+            destination[i - index] = (byte)(buffer[i] << offset);
 
             int mask = ((1 << 8) - 1) << 8 - offset & 0xFF;
 
-            destinantion[i - index] |= (byte)((buffer[i + 1] & mask) >> 8 - offset);
+            destination[i - index] |= (byte)((buffer[i + 1] & mask) >> 8 - offset);
         }
 
-        destinantion[size - 1] = (byte)(buffer[index + size - 1] << offset);
+        destination[size - 1] = (byte)(buffer[index + size - 1] << offset);
 
-        return destinantion;
+        return destination;
     }
 }
 
