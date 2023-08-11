@@ -1,0 +1,6 @@
+namespace eShopOnContainers.Core;
+
+partial class @(Model.Name) {
+
+
+}
